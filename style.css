@@ -7,3 +7,24 @@
     width:600px;
     height:100px;
 }
+
+
+#moods label{
+    height: 70px;
+    width: 70px;
+}
+.ui-state-active, .ui-state-hover {
+    background:#aaa;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    -moz-box-shadow: 0 0 5px 5px #ddd;
+    -webkit-box-shadow: 0 0 5px 5px#dd;
+    box-shadow: 0 0 5px 5px #ddd;
+}
+.ui-helper-hidden {
+    display: none;
+}
+.ui-helper-hidden-accessible {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}

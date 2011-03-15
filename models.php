@@ -6,7 +6,7 @@
 class Message
 {
 
-    public $id
+    public $id;
     public $content;
     public $updated;
     public $mood;
