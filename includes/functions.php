@@ -1,8 +1,16 @@
 <?php
 
-function get_settings($keys='')
+function get_settings($keys)
 {
-    #pass
+    $select_settings_query = "select setting,value from settings where setting in ('sitename', 'tagline','username', 'password')";
+    $result = db_query($select_settings_query);
+    $settings = array();
+    while($row = db_fetch_array($result))
+    {
+        $setting = $row['setting'];
+        $settings[$setting] = $row['value'];
+    }
+    return $settings;
 }
 
 function get_messages($limit=20)
@@ -16,7 +24,7 @@ function get_messages($limit=20)
         $message = new Message();	
         $message->id = $mes['id'];
         $message->content = $mes['content'];
-        $message->maxitems = $mes['mood'];
+        $message->mood = $mes['mood'];
         $messages[] = $message;
     }
     return $messages;

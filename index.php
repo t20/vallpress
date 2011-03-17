@@ -1,3 +1,19 @@
+<?php
+
+include 'config.php';
+if (!defined('CONFIG')) 
+{
+    header("Location: install/index.php");
+}
+
+include 'includes/database.php';
+$connected = db_connect();
+if (!$connected)
+{
+   header("Location: dberror.php");
+}
+?>
+
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -8,6 +24,16 @@
         <script >
         	$(function() {
         		$( "#moods" ).buttonset();
+        		$("#add_message").click(function () 
+        		{
+                    var newval = ($("#add_message_status").val() == 0)? 1 : 0;
+                    $("#add_message_status").val(newval);
+                    if (newval)
+                        $("#write").fadeIn("slow");
+                    else
+                        $("#write").fadeOut("slow");
+                });
+            
         	});
         </script>
     </head>
@@ -18,12 +44,17 @@
                 <h3>{{TAGLINE}}</h3>
                 <h3>{{GIVE FEEDBACK MESSAGE}}</h3>
             </div>
+            <div id="add_message">
+               <input type="button" name="add_message" value="Add Message" id="add_message"/>
+               <input type="hidden" name="add_message_status" value="0" id="add_message_status"/>
+            </div>
             <div id="write">
                 <form action="process.php" method="POST">
                     <div id="moods">
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="1" ><label for="radio1"  role="button" ><img src="static/images/moods/great.png"/></label>
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio2" value="2" ><label for="radio2" role="button" ><img src="static/images/moods/smile.png"/></label>
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio3" value="3" ><label for="radio3"  role="button" ><img src="static/images/moods/sad.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="great" ><label for="radio1"  role="button" ><img src="static/images/moods/great.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio2" value="good" ><label for="radio2" role="button" ><img src="static/images/moods/smile.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio3" value="sad" ><label for="radio3"  role="button" ><img src="static/images/moods/sad.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio4" value="bad" ><label for="radio4"  role="button" ><img src="static/images/moods/bad.png"/></label>
                     </div>
                     <textarea name="message_box" id="message_box"></textarea>
                     <p><input type="submit" value="Write" name="submit"></p>
@@ -31,8 +62,6 @@
             </div>
             <div id="content">
                 <?php 
-                    include 'config.php';
-                    include 'includes/database.php';
                     include 'models.php';
                     include 'includes/functions.php';
                     $messages = get_messages();
