@@ -29,9 +29,9 @@ if (!$connected)
                     var newval = ($("#add_message_status").val() == 0)? 1 : 0;
                     $("#add_message_status").val(newval);
                     if (newval)
-                        $("#write").fadeIn("slow");
+                        $("#write_form").fadeIn("slow");
                     else
-                        $("#write").fadeOut("slow");
+                        $("#write_form").fadeOut("slow");
                 });
                 $("#write_form").submit(function (event) {
                     event.preventDefault();
@@ -61,6 +61,19 @@ if (!$connected)
             </div>
             <div id="write">
                 <form action="process.php" method="POST" id="write_form">
+                   <div id="moods">
+                       <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="great" >
+                       <label for="radio1" role="button" ><img src="static/images/moods/great.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio2" value="good" >
+                        <label for="radio2" role="button" ><img src="static/images/moods/smile.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio3" value="sad" >
+                        <label for="radio3"  role="button" ><img src="static/images/moods/sad.png"/></label>
+                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio4" value="bad" >
+                        <label for="radio4"  role="button" ><img src="static/images/moods/bad.png"/></label>
+                   </div>
+                   <textarea name="message_box" id="message_box"></textarea>
+                   <p><input type="submit" value="Write" name="submit"></p>
+               </form>
             </div>
             <div id="stats">
                 <?php
