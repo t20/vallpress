@@ -1,18 +1,22 @@
 #wrapper {
     width:960px;
-    margin:10px auto;
+    margin:10px auto 20px;
 }
 
+/*Write controls*/
+#write {
+    display:none;
+}
+#moods label{
+    height: 70px;
+    width: 70px;
+}
 #message_box {
     width:600px;
     height:100px;
 }
 
-
-#moods label{
-    height: 70px;
-    width: 70px;
-}
+/*jquery radio */
 .ui-state-active, .ui-state-hover {
     background:#aaa;
     -moz-border-radius: 35px;
@@ -29,10 +33,7 @@
     position: absolute !important;
 }
 
-#write {
-    display:none;
-}
-
+/*Message styles*/
 .message {
     float:left;
     border:5px solid #eee;
@@ -40,4 +41,16 @@
     width:170px;
     margin:10px;
     padding:10px;
+}
+
+.hidden {
+    display:none;
+}
+
+.great, .good {
+    border:5px solid green;
+}
+
+.bad {
+    border:5px solid red;
 }

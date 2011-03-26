@@ -111,12 +111,12 @@ if (isset($data['submit']))
 
 <html>
 <head>
-    <title>AZSTORE Installation</title>
+    <title>Vallpress Installation</title>
 <link rel="stylesheet" href="../admin/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
 <div id="wrapper">
-<h1>AZSTORE Installation</h1>
+<h1>Vallpress Installation</h1>
 
 <?php
 include '../includes/message.php';

@@ -33,7 +33,18 @@ if (!$connected)
                     else
                         $("#write").fadeOut("slow");
                 });
-            
+                $("#write_form").submit(function (event) {
+                    event.preventDefault();
+                    $.post ( 'process.php',
+                            $(this).serialize(),
+                            function(data) { 
+                                if (data['id'])
+                                $('#content').prepend(data['message']);
+                                $('.hidden').show('slow');
+                            } ,
+                            'json'
+                           );
+                });
         	});
         </script>
     </head>
@@ -49,21 +60,21 @@ if (!$connected)
                <input type="hidden" name="add_message_status" value="0" id="add_message_status"/>
             </div>
             <div id="write">
-                <form action="process.php" method="POST">
-                    <div id="moods">
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="great" ><label for="radio1"  role="button" ><img src="static/images/moods/great.png"/></label>
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio2" value="good" ><label for="radio2" role="button" ><img src="static/images/moods/smile.png"/></label>
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio3" value="sad" ><label for="radio3"  role="button" ><img src="static/images/moods/sad.png"/></label>
-                        <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio4" value="bad" ><label for="radio4"  role="button" ><img src="static/images/moods/bad.png"/></label>
-                    </div>
-                    <textarea name="message_box" id="message_box"></textarea>
-                    <p><input type="submit" value="Write" name="submit"></p>
-                </form>
+                <form action="process.php" method="POST" id="write_form">
             </div>
+            <div id="stats">
+                <?php
+                    include 'includes/functions.php';
+                    $stats = get_moods_stats();
+                    foreach ($stats as $mood => $count) {
+                        echo "$mood : $count " ;
+                    }
+                ?>
+            </div>
+            <div class="clear"></div>
             <div id="content">
                 <?php 
                     include 'models.php';
-                    include 'includes/functions.php';
                     $messages = get_messages();
                 ?>
                 <?php include 'messages.php'; ?>

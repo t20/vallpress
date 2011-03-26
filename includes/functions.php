@@ -20,7 +20,6 @@ function get_messages($limit=20)
     $messages = null;
     while($mes = db_fetch_array($result)) 
     {
-    	//Return each page title seperated by a newline.
         $message = new Message();	
         $message->id = $mes['id'];
         $message->content = $mes['content'];
@@ -38,7 +37,22 @@ function insert_message($message)
    
    $insert_message_query = "INSERT INTO `MESSAGES` (`content`, `updated` , `mood`, `enabled`) values ('$content' , now(), '$mood', 1)";
     $result = db_query($insert_message_query);
-    return $result;
+    if ($result)
+        return db_insert_id();
+    else 
+        return false;
 }
 
+function get_moods_stats()
+{
+    $select_moods_query = "SELECT `mood`, count(*) as count FROM `MESSAGES` WHERE `enabled` = 1 GROUP BY `mood`";
+    $result = db_query($select_moods_query);
+    $moods = array();
+    while($mood = db_fetch_array($result)) 
+    {
+        //create associate array of mood => count
+        $moods[$mood['mood']] = $mood['count'];
+    }
+    return $moods;
+}
 ?>
