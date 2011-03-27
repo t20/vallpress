@@ -29,9 +29,15 @@ if (!$connected)
                     var newval = ($("#add_message_status").val() == 0)? 1 : 0;
                     $("#add_message_status").val(newval);
                     if (newval)
+                    {
                         $("#write_form").fadeIn("slow");
+                        $('#add_message').val('Hide Write Controls');
+                    }
                     else
+                    {
                         $("#write_form").fadeOut("slow");
+                        $('#add_message').val('Add Message');
+                    }
                 });
                 $("#write_form").submit(function (event) {
                     event.preventDefault();
@@ -45,6 +51,9 @@ if (!$connected)
                             'json'
                            );
                 });
+                $('#refresh').click(function() {
+                    
+                });
         	});
         </script>
     </head>
@@ -55,14 +64,14 @@ if (!$connected)
                 <h3>{{TAGLINE}}</h3>
                 <h3>{{GIVE FEEDBACK MESSAGE}}</h3>
             </div>
-            <div id="add_message">
+            <div id="add_message_control">
                <input type="button" name="add_message" value="Add Message" id="add_message"/>
                <input type="hidden" name="add_message_status" value="0" id="add_message_status"/>
             </div>
             <div id="write">
                 <form action="process.php" method="POST" id="write_form">
                    <div id="moods">
-                       <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="great" >
+                       <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio1" value="great" checked="checked">
                        <label for="radio1" role="button" ><img src="static/images/moods/great.png"/></label>
                         <input type="radio" name="mood" class="ui-helper-hidden-accessible" id="radio2" value="good" >
                         <label for="radio2" role="button" ><img src="static/images/moods/smile.png"/></label>
@@ -86,6 +95,7 @@ if (!$connected)
             </div>
             <div class="clear"></div>
             <div id="content">
+                <input type="button" name="refresh" value="Refresh" id="refresh"/>
                 <?php 
                     include 'models.php';
                     $messages = get_messages();
